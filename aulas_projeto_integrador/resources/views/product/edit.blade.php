@@ -9,6 +9,8 @@
 <body class='container mt-5 bg-light'>
     <h1>Editar produto</h1>
     <form method='POST' action='{{ Route('product.update', $product->id) }}'>
+        <!-- Para usar métodos sem ser GET e POST, deve-se usar a sintaxe abaixo e enviar como POST -->
+        @method('PATCH')
         @csrf
         <div class='row'>
             <span class='form-label'>Nome</span>

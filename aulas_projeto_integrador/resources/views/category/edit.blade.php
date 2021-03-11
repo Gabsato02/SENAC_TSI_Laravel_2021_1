@@ -9,6 +9,7 @@
 <body class='container mt-5 bg-light'>
     <h1>Editar categoria</h1>
     <form method='POST' action='{{ Route('category.update', $category->id) }}'>
+        @method('PATCH')
         @csrf
         <div class='row'>
             <span class='form-label'>Nome</span>

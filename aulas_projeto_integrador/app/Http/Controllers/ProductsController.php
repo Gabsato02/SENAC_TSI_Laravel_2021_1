@@ -21,14 +21,14 @@ class ProductsController extends Controller
         return view('product.create');
     }
     /* 
-        O parâmetro com a classe Request recebe o payload que vier de uma requisição
+        O parâmetro com a classe Request recebe o request que vier de uma requisição
     */
-    public function store(Request $payload) {
+    public function store(Request $request) {
         /* Passo 2.3: criação de model e migration = php artisan make:model Product -m 
            Passo 4.1: A função abaixo cria a instância dos dados recebidos no banco
-              Estrutura: Model::create(payload->todos_os_dados());
+              Estrutura: Model::create(request->todos_os_dados());
         */
-        Product::create($payload->all());
+        Product::create($request->all());
         // session()->flash() cria uma sessão que será destruída logo após a leitura
         session()->flash('success', 'Produto foi cadastrado com sucesso!');
         return redirect(route('product.index'));
@@ -40,9 +40,9 @@ class ProductsController extends Controller
         return view('product.edit')->with('product', $product);
     }
 
-    public function update(Request $payload, Product $product)
+    public function update(Request $request, Product $product)
     {
-        $product->update($payload->all());
+        $product->update($request->all());
         session()->flash('success', 'Produto foi alterado com sucesso!');
         return redirect(route('product.index'));
     }

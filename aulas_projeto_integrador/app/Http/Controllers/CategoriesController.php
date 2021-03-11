@@ -15,8 +15,8 @@ class CategoriesController extends Controller
         return view('category.create');
     }
 
-    public function store(Request $payload) {
-        Category::create($payload->all());
+    public function store(Request $request) {
+        Category::create($request->all());
         session()->flash('success', 'Categoria foi cadastrada com sucesso!');
         return redirect(route('category.index'));
     }
@@ -25,9 +25,9 @@ class CategoriesController extends Controller
         return view('category.edit')->with('category', $category);
     }
 
-    public function update(Request $payload, Category $category)
+    public function update(Request $request, Category $category)
     {
-        $category->update($payload->all());
+        $category->update($request->all());
         session()->flash('success', 'Categoria foi alterada com sucesso!');
         return redirect(route('category.index'));
     }

@@ -8,7 +8,7 @@
 
 <body class='container mt-5 bg-light'>
     <h1>Criação de categorias</h1>
-    <form method='post' action='{{ Route('category.store') }}' >
+    <form method='POST' action='{{ Route('category.store') }}' >
         <!-- O CSRF serve pra proteger o site de requisições cross-site -->
         @csrf
         <div class='row'>
