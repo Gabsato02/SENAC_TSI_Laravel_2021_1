@@ -27,5 +27,4 @@ class Funcionario extends Model
        ORM Eloquent cria colunas de timestamp, de criação e alteração dos registros
        Para tirar esses timestamps: public $timestamps = false; */
 
-
 }

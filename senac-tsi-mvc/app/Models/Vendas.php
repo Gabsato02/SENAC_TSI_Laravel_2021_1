@@ -16,4 +16,15 @@ class Vendas extends Model
                             'valor' ];
 
     protected $table = 'Vendas';
+
+    public function cliente() {
+        // Relacionando tabelas - Relacionamento 1:N
+        // (classe que será associada, foreign_key)
+        // No caso abaixo, retorna quais vendas estão associadas ao cliente
+        return $this->belongsTo(Clientes::class, 'id');
+    }
+
+    public function funcionario() {
+        return $this->belongsTo(Funcionario::class, 'id');
+    }
 }
