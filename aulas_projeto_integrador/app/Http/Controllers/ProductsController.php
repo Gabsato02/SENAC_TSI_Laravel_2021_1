@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 // Passo 4: Importando a model após a criação
 use App\Models\Product;
+use App\Models\Category;
 
 /* Passo 2: No console: php artisan make:controller ProductsController, para que seja criada a controller referente a view Product
 Passo 2.1: O retorno da view que antes estava na Route, agora ocorre dentro da função que foi criada pra isso
@@ -18,7 +19,7 @@ class ProductsController extends Controller
     }
 
     public function create() {
-        return view('product.create');
+        return view('product.create')->with('categories', Category::all());
     }
     /* 
         O parâmetro com a classe Request recebe o request que vier de uma requisição
@@ -37,7 +38,7 @@ class ProductsController extends Controller
     public function edit(Product $product) {
         /* A view produt.edit será aberta com o parâmetro $product
         Estrutura: function edit(Model $elemento) */
-        return view('product.edit')->with('product', $product);
+        return view('product.edit')->with(['product'=>$product, 'categories'=>Category::all()]);
     }
 
     public function update(Request $request, Product $product)
