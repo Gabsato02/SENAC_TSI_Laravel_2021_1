@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\AvisoController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,10 +13,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+/* Route::get('/', function () {
     return view('welcome');
 });
+ */
+/* Route::get('/avisos', function() {
+    return view('avisos', ['nome'=>'Sato', 
+                           'mostrar' => true,
+                           'avisos' => [['id' => 1,'texto' => 'Feriados adiantados.'],
+                                        ['id' => 2,'texto' => 'Fique em casa!']]
+                          ]);
+}); */
 
-Route::get('/avisos', function() {
-    return view('avisos');
-});
+Route::resource('/', AvisoController::class);
