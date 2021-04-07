@@ -10,25 +10,25 @@
     @include('layouts.menu')
     <main class='container mt-5'>
         <h1>Criação de produtos</h1>
-        <form method='post' action='{{ Route('product.store') }}' >
+        <form method='post' action='{{ Route('product.store') }}' enctype='multipart/form-data'>
             <!-- O CSRF serve pra proteger o site de requisições cross-site -->
             @csrf
-            <div class='row'>
+            <div class='row mt-4'>
                 <span class='form-label'>Nome</span>
                 <input type='text' class='form-control' name='name' />
             </div>
 
-            <div class='row'>
+            <div class='row mt-4'>
                 <span class='form-label'>Descrição</span>
                 <textarea class='form-control' name='description'></textarea>
             </div>
 
-            <div class='row'>
+            <div class='row mt-4'>
                 <span class='form-label'>Preço</span>
                 <input type='number' min='0.00' max='10000' step='0.01' class='form-control' name='price' />
             </div>
 
-            <div class='row'>
+            <div class='row mt-4'>
                 <span class='form-label'>Categoria</span>
                 <select class='form-select' name='category_id'>
                     @foreach($categories as $category)
@@ -37,6 +37,20 @@
                 </select>
             </div>
 
+            <div class='row mt-4'>
+                <span class='form-label'>Tags</span>
+                <select class='form-select' name='tags[]' multiple>
+                    @foreach($tags as $tag)
+                        <option value="{{ $tag->id }}">{{ $tag->name}}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class='row mt-4'>
+                <span class='form-label'>Imagem</span>
+                <input type='file' class='form-control' name='image'>
+            </div>
+            
             <div class='row mt-4'>
                 <button type='submit' class='btn btn-lg btn-success'>Salvar</button>
             </div>

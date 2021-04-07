@@ -20,10 +20,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-
 require __DIR__.'/auth.php';
 
 /* Passo 1: criando uma view para a visualização de produtos.
@@ -34,6 +30,22 @@ Passo 1.1: A função que antes retornava um get, foi substituída pelo acesso a
 ESTRUTURA: Rota::requisição(nome_da_view, [Classe::class, nome_da_classe])->name(nome_da_rota);
 */
 
-Route::resource('/category', CategoriesController::class)->middleware(['auth']);
-Route::resource('/product', ProductsController::class)->middleware(['auth']);
-Route::resource('/tag', TagController::class)->middleware(['auth']);
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+Route::group(['middleware' => 'isAdmin'], function () {
+    Route::resource('/product', ProductsController::class, ['except' => ['show']]);
+    Route::get('/trash/product', [ProductsController::class, 'trash'])->name('product.trash');
+    Route::patch('/product/restore/{id}', [ProductsController::class, 'restore'])->name('product.restore');
+
+    Route::resource('/category', CategoriesController::class);
+    Route::get('/trash/category', [CategoriesController::class, 'trash'])->name('category.trash');
+    Route::patch('/category/restore/{id}', [CategoriesController::class, 'restore'])->name('category.restore');
+
+    Route::resource('/tag', TagController::class);
+    Route::get('/trash/tag', [TagController::class, 'trash'])->name('tag.trash');
+    Route::patch('/tag/restore/{id}', [TagController::class, 'restore'])->name('tag.restore');
+});
+
+Route::resource('/product', ProductsController::class, ['only'=>['show']]);

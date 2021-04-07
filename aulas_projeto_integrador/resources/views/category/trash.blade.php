@@ -2,11 +2,11 @@
 <html lang="pt-br">
 
 <head>
-    <title>Lista de categorias</title>
+    <title>Categorias apagadas</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <script>
-        function confirmDelete(route) {
-            if (confirm('Deseja remover a categoria?')) window.location = route
+        function confirmRestore(route) {
+            if (confirm('Deseja restaurar a categoria?')) window.location = route
             return null;
         }
     </script>
@@ -20,9 +20,7 @@
             {{ session()->get('success') }}
         </div>
         @endif
-        <h1>Lista de categorias</h1>
-        <a href='{{ Route('category.create') }}' class='btn btn-lg btn-primary'>Criar categoria</a>
-        <a href="{{ Route('category.trash') }}" class='btn btn-lg btn-danger'>Ver lixeira</a>
+        <h1>Lista de categorias apagadas</h1>
         <div class='row'>
             <table class='table table-striped'>
                 <thead>
@@ -40,12 +38,10 @@
                         <td>{{ $category->name }}</td>
                         <td>{{ $category->products->count() }}</td>
                         <td>
-                            <a href='#' class='btn btn-sm btn-success'>Visualizar</a>
-                            <a href='{{ Route('category.edit', $category->id) }}' class='btn btn-sm btn-warning'>Editar</a>
-                            <form method='POST' class='d-inline' onsubmit="return confirmDelete();" action='{{ Route('category.destroy', $category->id) }}'>
+                            <form method='POST' class='d-inline' onsubmit="return confirmRestore();" action='{{ Route('category.restore', $category->id) }}'>
                                 @csrf
-                                @method('DELETE')
-                                <button type='submit' class='btn btn-sm btn-danger d-inline'>Apagar</button>
+                                @method('PATCH')
+                                <button type='submit' class='btn btn-sm btn-primary d-inline'>Restaurar</button>
                             </form>
                         </td>
                     </tr>

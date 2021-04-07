@@ -47,4 +47,15 @@ class TagController extends Controller
         session()->flash('success', 'Tag foi excluída com sucessa!');
         return redirect(route('tag.index'));
     }
+
+    public function trash() {
+        return view('tag.trash')->with('tags', Tag::onlyTrashed()->get());
+    }
+
+    public function restore($id) {
+        $tag = Tag::onlyTrashed()->where('id', $id)->firstOrFail();
+        $tag->restore();
+        session()->flash('success', 'Tag restaurada com sucesso!');
+        return redirect(route('tag.trash'));
+    }
 }
