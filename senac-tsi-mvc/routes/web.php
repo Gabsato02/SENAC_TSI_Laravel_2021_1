@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AvisoController;
+use App\Http\Controllers\ClientesController;
+use App\Http\Controllers\VendasController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,4 +27,19 @@ use App\Http\Controllers\AvisoController;
                           ]);
 }); */
 
-Route::resource('/', AvisoController::class);
+/* Route::resource('/', AvisoController::class); */
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::group(['prefix' => 'clientes'], function () {
+    Route::get('/listar', [ClientesController::class, 'listar'])->middleware('auth');
+});
+
+Route::group(['prefix' => 'vendas'], function () {
+    Route::get('/listar', [VendasController::class, 'listar'])->middleware('auth');
+});
