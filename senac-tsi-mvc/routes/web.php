@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AvisoController;
 use App\Http\Controllers\ClientesController;
 use App\Http\Controllers\VendasController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\RoleController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -42,4 +44,9 @@ Route::group(['prefix' => 'clientes'], function () {
 
 Route::group(['prefix' => 'vendas'], function () {
     Route::get('/listar', [VendasController::class, 'listar'])->middleware('auth');
+});
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::resource('/users', UserController::class);
+    Route::resource('/roles', RoleController::class);
 });
