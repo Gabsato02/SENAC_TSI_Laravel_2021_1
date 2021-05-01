@@ -11,7 +11,7 @@ CRIAÇÃO DE MODEL DE DADOS: php artisan make:model nome_da_model (singular)
 CRIAÇÃO DE MODEL + MIGRATION: php artisan make:model nome_da_model -m
 CRIAÇÃO DE MIGRATION PARA CRIAR A TABELA: php artisan make:migration nome_da_migration --create=NomeDaTabela
 CRIAÇÃO DE RESOURCE CONTROLLER, MODEL E MIGRATION: php artisan make:model nome_da_model -crm
-
+ALTERAÇÃO DE TABLE (ADICIONAR NOVO CAMPO): php artisan make:migration add_relation_model1_and_model2 --table=nome_da_tabela1
 
 RODAR MIGRATION: php artisan migrate
 
@@ -28,3 +28,9 @@ ACESSAR MODEL/BANCO DE DADOS PELO CONSOLE: php artisan tinker
 	UPDATE: $var->update(['campo'=>'novo_valor']);
 
 LISTAR ROTAS: php artisan route:list
+LINKAR UMA PASTA DO PROJETO A PASTA PUBLIC: php artisan nome_da_pasta:link
+CRIAR UM MIDDLEWARE: php artisan make:middleware nome_do_middleware
+
+INSTALA A COLEÇÃO COLLECTIVE DE HTML: composer require laravelcollective/html
+INSTALA O SPATIE: composer require spatie/laravel-permission
+INSTALA AS PERMISSÕES DO SPATIE: php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"
