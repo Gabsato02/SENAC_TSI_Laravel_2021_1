@@ -21,6 +21,11 @@ class CategoriesController extends Controller
         return redirect(route('category.index'));
     }
 
+    public function show(Category $category)
+    {
+        return view('category.show')->with(['category' => $category, 'products' => $category->products()->paginate(3)]);
+    }
+
     public function edit(Category $category) {
         return view('category.edit')->with('category', $category);
     }
@@ -34,6 +39,11 @@ class CategoriesController extends Controller
 
     public function destroy(Category $category)
     {
+        if($category->products()->count() > 0) {
+            session()->flash('success', 'Você não pode deletar uma categoria que tenha produtos.');
+            return redirect(route('category.index'));
+        }
+
         $category->delete($category);
         session()->flash('success', 'Categoria foi excluída com sucessa!');
         return redirect(route('category.index'));

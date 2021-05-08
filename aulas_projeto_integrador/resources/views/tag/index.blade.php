@@ -15,11 +15,6 @@
 <body>
     @include('layouts.menu')
     <main class='container mt-5'>
-        @if(session()->has('success'))
-        <div class='alert alert-success' roles='alert'>
-            {{ session()->get('success') }}
-        </div>
-        @endif
         <h1>Lista de tags</h1>
         <!-- As mustache tags aqui servem pra interpolar PHP -->
         <a href="{{ Route('tag.create') }}" class='btn btn-lg btn-primary'>Criar tag</a>

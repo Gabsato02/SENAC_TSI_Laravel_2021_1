@@ -45,8 +45,8 @@
                         <td><img src="{{ asset($product->image) }}" style="width: 35px"></td>
                         <td>{{ $product->name }}</td>
                         <td>{{ $product->description }}</td>
-                        <td>{{ $product->category->name }}</td>
                         <td>{{ $product->price }}</td>
+                        <td>{{ $product->category->name }}</td>
                         <td>
                             <a href='#' class='btn btn-sm btn-success'>Visualizar</a>
                             <a href='{{ Route('product.edit', $product->id) }}' class='btn btn-sm btn-warning'>Editar</a>

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\CartsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +18,7 @@ use App\Http\Controllers\TagController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
 require __DIR__.'/auth.php';
@@ -39,13 +40,21 @@ Route::group(['middleware' => 'isAdmin'], function () {
     Route::get('/trash/product', [ProductsController::class, 'trash'])->name('product.trash');
     Route::patch('/product/restore/{id}', [ProductsController::class, 'restore'])->name('product.restore');
 
-    Route::resource('/category', CategoriesController::class);
+    Route::resource('/category', CategoriesController::class, ['except' => ['show']]);
     Route::get('/trash/category', [CategoriesController::class, 'trash'])->name('category.trash');
     Route::patch('/category/restore/{id}', [CategoriesController::class, 'restore'])->name('category.restore');
 
-    Route::resource('/tag', TagController::class);
+    Route::resource('/tag', TagController::class, ['except' => ['show']]);
     Route::get('/trash/tag', [TagController::class, 'trash'])->name('tag.trash');
     Route::patch('/tag/restore/{id}', [TagController::class, 'restore'])->name('tag.restore');
 });
 
+Route::group(['middleware' => 'auth'], function() {
+    Route::get('/cart/add/{product}', [CartsController::class, 'add'])->name('cart.add');
+    Route::get('/cart/remove/{product}', [CartsController::class, 'remove'])->name('cart.remove');
+    Route::get('/cart', [CartsController::class, 'show'])->name('cart.show');
+});
+
 Route::resource('/product', ProductsController::class, ['only'=>['show']]);
+Route::resource('/tag', TagController::class, ['only'=>['show']]);
+Route::resource('/category', CategoriesController::class, ['only'=>['show']]);

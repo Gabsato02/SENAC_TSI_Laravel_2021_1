@@ -23,6 +23,7 @@ class ProductsController extends Controller
     public function create() {
         return view('product.create')->with(['categories'=>Category::all(), 'tags'=>Tag::all()]);
     }
+
     /* 
         O parâmetro com a classe Request recebe o request que vier de uma requisição
     */
@@ -52,6 +53,10 @@ class ProductsController extends Controller
         // session()->flash() cria uma sessão que será destruída logo após a leitura
         session()->flash('success', 'Produto foi cadastrado com sucesso!');
         return redirect(route('product.index'));
+    }
+
+    public function show(Product $product) {
+        return view('product.show')->with('product', $product);
     }
 
     public function edit(Product $product) {

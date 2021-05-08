@@ -23,4 +23,8 @@ class Product extends Model
         // Inner Join com tabela de explosão
         return $this->belongsToMany(Tag::class);
     }
+
+    public static function promocoes() {
+        return Product::all()->take(3);
+    }
 }
