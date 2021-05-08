@@ -41,11 +41,11 @@
             </div>
             <div class='text-center mt-3'>
                 <span class='d-block'>{{ $product->name }}</span>
-                <span class='text-decoration-line-through text-muted'>R$100,00</span>
-                <span class=''>{{ $product->price }}</span>
+                <span class='text-decoration-line-through text-muted'>R$ 100,00</span>
+                <span class=''>R$ {{ number_format($product->price, 2, ',', '.') }}</span>
                 <div class='mt-3'>
-                    <a href='#' class='btn btn-secondary'>Visualizar</a>
-                    <a href='#' class='btn btn-primary'>Comprar</a>
+                    <a href='{{ route('product.show', $product->id) }}' class='btn btn-secondary'>Visualizar</a>
+                    <a href='{{ route('cart.add', $product->id) }}' class='btn btn-primary'>Comprar</a>
                 </div>
             </div>
         </div>

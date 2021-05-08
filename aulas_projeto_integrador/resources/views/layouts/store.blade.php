@@ -47,6 +47,10 @@
                                 @endforeach
                             </ul>
                         </li>
+
+                        <li class="nav-item">
+                            <a class='nav-link' href='{{ route('cart.show') }}'>Carrinho ({{\App\Models\Cart::count()}})</a>
+                        </li>
                     </ul>
                 </div>
 

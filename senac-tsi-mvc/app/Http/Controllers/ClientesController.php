@@ -44,14 +44,13 @@ class ClientesController extends Controller
         // Validação de campos
         $this->validate($request,
             ['nome' => 'required',
-            'email' => 'required|email|unique:users,email',
-            'roles' => 'required']);
+            'email' => 'required|email|unique:users,email']);
 
         $input = $request->all();
 
-        $user = Cliente::create($input);
+        /* $user =  */Clientes::create($input);
 
-        $user->assignRole($request->input('roles'));
+        /* $user->assignRole($request->input('roles')); */
 
         return redirect()->route('clientes.index')->with('success', 'Cliente criado com sucesso');
     }
@@ -60,26 +59,25 @@ class ClientesController extends Controller
     {
         $cliente = Clientes::find($id);
 
-        return view('clientes.show', compact('user'));
+        return view('clientes.show', compact('cliente'));
     }
 
     public function edit($id)
     {
         $cliente = Clientes::find($id);
 
-        $roles = Role::pluck('name', 'name')->all();
+        /* $roles = Role::pluck('name', 'name')->all();
 
-        $clienteRole = $cliente->roles->pluck('name', 'name')->all();
+        $clienteRole = $cliente->roles->pluck('name', 'name')->all(); */
 
-        return view('clientes.edit', compact('cliente', 'roles', 'clienteRole'));
+        return view('clientes.edit', compact('cliente'/* , 'roles', 'clienteRole' */));
     }
 
     public function update(Request $request, $id)
     {
         $this->validate($request,
             ['nome' => 'required',
-            'email' => 'required|email|unique:users,email',
-            'roles' => 'required']);
+            'email' => 'required|email|unique:users,email']);
 
         $input = $request->all();
 
@@ -87,9 +85,9 @@ class ClientesController extends Controller
 
         $cliente->update($input);
 
-        DB::table('model_has_roles')->where('model_id', $id)->delete();
+        /* DB::table('model_has_roles')->where('model_id', $id)->delete();
 
-        $cliente->assignRole($request->input(roles));
+        $cliente->assignRole($request->input(roles)); */
 
         return redirect()->route('clientes.index')->with('success', 'Cliente atualizado com sucesso!');
     }

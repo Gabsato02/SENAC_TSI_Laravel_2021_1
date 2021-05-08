@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\CartsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +47,12 @@ Route::group(['middleware' => 'isAdmin'], function () {
     Route::resource('/tag', TagController::class, ['except' => ['show']]);
     Route::get('/trash/tag', [TagController::class, 'trash'])->name('tag.trash');
     Route::patch('/tag/restore/{id}', [TagController::class, 'restore'])->name('tag.restore');
+});
+
+Route::group(['middleware' => 'auth'], function() {
+    Route::get('/cart/add/{product}', [CartsController::class, 'add'])->name('cart.add');
+    Route::get('/cart/remove/{product}', [CartsController::class, 'remove'])->name('cart.remove');
+    Route::get('/cart', [CartsController::class, 'show'])->name('cart.show');
 });
 
 Route::resource('/product', ProductsController::class, ['only'=>['show']]);

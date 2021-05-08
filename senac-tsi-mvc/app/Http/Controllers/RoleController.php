@@ -18,13 +18,13 @@ class RoleController extends Controller
         $this->middleware('permission:role-delete', ['only' => ['destroy']]);
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $qtde_por_pagina = 5;
 
         $roles = Role::orderBy('id', 'DESC')->paginate($qtde_por_pagina);
 
-        return view('roles.index', compaxt('roles'))->with('i', ($request->input('page', 1) - 1) * $qtde_por_pagina);
+        return view('roles.index', compact('roles'))->with('i', ($request->input('page', 1) - 1) * $qtde_por_pagina);
     }
 
     public function create()
@@ -71,7 +71,7 @@ class RoleController extends Controller
 
     public function update(Request $request, $id)
     {
-        $this->validate($request, ['name' => 'required|unique:roles,name',
+        $this->validate($request, ['name' => 'required',
         'permission' => 'required']);
 
         $role = Role::find($id);
