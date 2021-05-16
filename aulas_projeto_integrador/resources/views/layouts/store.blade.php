@@ -31,7 +31,9 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuCategory">
                                 @foreach(\App\Models\Category::all() as $category)
-                                <li><a class="dropdown-item" href="{{ route('category.show', $category->id) }}">{{ $category->name }}</a></li>
+                                <li><a class="dropdown-item"
+                                        href="{{ route('category.show', $category->id) }}">{{ $category->name }}</a>
+                                </li>
                                 @endforeach
                             </ul>
                         </li>
@@ -43,17 +45,27 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuTag">
                                 @foreach(\App\Models\Tag::all() as $tag)
-                                <li><a class="dropdown-item" href="{{ route('tag.show', $tag->id) }}">{{ $tag->name }}</a></li>
+                                <li><a class="dropdown-item"
+                                        href="{{ route('tag.show', $tag->id) }}">{{ $tag->name }}</a></li>
                                 @endforeach
                             </ul>
                         </li>
-
-                        <li class="nav-item">
-                            <a class='nav-link' href='{{ route('cart.show') }}'>Carrinho ({{\App\Models\Cart::count()}})</a>
-                        </li>
                     </ul>
                 </div>
-
+                <div class='d-inline ms-auto'>
+                    @if(Auth()->user())
+                    <li class="nav-item d-flex">
+                        <span class='nav-link'>{{ Auth()->user()->name }}</span>
+                        <a class='nav-link' href='{{ route('cart.show') }}'>Carrinho
+                            ({{\App\Models\Cart::count()}})</a>
+                    </li>
+                    @else
+                    <div class='d-flex'>
+                        <a class='nav-link' href='{{ route('register') }}'>Registrar</a>
+                        <a class='nav-link' href='{{ route('login') }}'>Logar</a>
+                    </div>
+                    @endif
+                </div>
             </div>
         </nav>
     </header>
