@@ -34,3 +34,7 @@ CRIAR UM MIDDLEWARE: php artisan make:middleware nome_do_middleware
 INSTALA A COLEÇÃO COLLECTIVE DE HTML: composer require laravelcollective/html
 INSTALA O SPATIE: composer require spatie/laravel-permission
 INSTALA AS PERMISSÕES DO SPATIE: php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"
+
+INSTALA A AUTENTICAÇÃO JWT: composer require tymon/jwt-auth:dev-develop --prefer-source
+SELECIONA A AUTENTICAÇÃO DURANTE A INSTALAÇÃO: php artisan vendor:publish
+CRIA A CHAVE JWT: php artisan jwt:secret
